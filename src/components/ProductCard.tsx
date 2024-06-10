@@ -1,29 +1,37 @@
+import Button from "./UI/Button";
+import Image from "./Image";
+import { IProduct } from "../interfaces";
+import { sliceText, sliceTextTitle } from "../utilities";
 interface IProps {
-
-
+    product: IProduct
 }
 
-const ProductCard = ({ }: IProps) => {
+const ProductCard = ({product}: IProps) => {
+    const {title,description,imageURL,price} =product;
     return (
         <>
-            <article className="border-2 p-2 flex flex-col">
-                <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80" alt="Product Image" />
-                <h3>Nike Shoes</h3>
-                <p>As luxury T-Shirt is just as distinctive and can be trimmed with premium materials like Nappa leather and carbon fiber.</p>
-                <div className="flex items-center mt-4 mb-2 space-x-1">
-                <span className="w-5 h-5 rounded-full bg-indigo-400" />
-                <span className="w-5 h-5 rounded-full bg-green-400" />
-                <span className="w-5 h-5 rounded-full bg-red-800" />
+            <article className="border rounded-md p-2 flex flex-col mx-auto max-w-sm">
+                <Image url={imageURL} alt={"Product Image"} className="border rounded-sm md:h-40" />
+                <div className="mt-3">
+                    <h3 className="text-xl mb-1">{sliceTextTitle(title)}</h3>
+                    <p className="text-gray-500">{sliceText(description)}</p>
+                </div>
+                <div className="flex items-center mt-4 mb-1 space-x-1">
+                    <span className="w-5 h-5 rounded-full bg-indigo-400" />
+                    <span className="w-5 h-5 rounded-full bg-green-400" />
+                    <span className="w-5 h-5 rounded-full bg-red-800" />
                 </div>
                 <div className=" flex items-center justify-between mb-3">
-                    <span>50,000$</span>
-                    <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80" alt="Product Image" className="h-10 w-10 rounded-full "/>
+                    <span className="text-indigo-600 text-xl font-semibold">{price}$</span>
+                    <Image url={imageURL} alt={"Product Category"} className="h-10 w-10 rounded-full object-bottom" />
                 </div>
-               
+                <div className="space-x-2 flex justify-between">
+                    <Button name="Edit" className="bg-indigo-700" onClick={() => console.log("Button Clicked")} width="w-full" />
+                    <Button className="bg-red-700">
+                        <span>Cancel</span>
+                    </Button>
 
-               
-           
-
+                </div>
             </article>
         </>
     );
