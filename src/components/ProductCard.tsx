@@ -3,11 +3,12 @@ import Image from "./Image";
 import { IProduct } from "../interfaces";
 import { sliceText, sliceTextTitle } from "../utilities";
 interface IProps {
-    product: IProduct
+    product: IProduct,
+    openModel:()=>void
 }
 
-const ProductCard = ({product}: IProps) => {
-    const {title,description,imageURL,price} =product;
+const ProductCard = ({product,openModel}: IProps) => {
+    const {title,description,imageURL,price} = product;
     return (
         <>
             <article className="border rounded-md p-2 flex flex-col mx-auto max-w-sm">
@@ -26,9 +27,9 @@ const ProductCard = ({product}: IProps) => {
                     <Image url={imageURL} alt={"Product Category"} className="h-10 w-10 rounded-full object-bottom" />
                 </div>
                 <div className="space-x-2 flex justify-between">
-                    <Button name="Edit" className="bg-indigo-700" onClick={() => console.log("Button Clicked")} width="w-full" />
+                    <Button name="Edit" className="bg-indigo-700" onClick={openModel} width="w-full" />
                     <Button className="bg-red-700">
-                        <span>Cancel</span>
+                        <span>Delete</span>
                     </Button>
 
                 </div>
