@@ -6,47 +6,71 @@ import { formInputsList, productList } from './data/ProductData';
 import { useState } from 'react'
 import Input from './components/Input';
 import { IProduct } from './interfaces';
+import { productValidation } from './validation/productInputValidation';
+import ErrorMessages from './components/ErrorMessages';
 
 function App() {
-  const defualtProductData ={
+  const defualtProductData = {
     id: "",
     title: "",
-    description:"",
-    imageURL:"",
+    description: "",
+    imageURL: "",
     price: "",
-    colors:  [],
+    colors: [],
     category: {
       name: "",
-      imageURL:"",
+      imageURL: "",
     }
-}
+  }
+
   //** state for open and close model  */
-  let [isOpen, setIsOpen] = useState(false)
+  let [isOpen, setIsOpen] = useState(false);
 
   function open() {
-    setIsOpen(true)
+    setIsOpen(true);
   }
 
   function close() {
-    setIsOpen(false)
+    setInputData(defualtProductData);
+    setIsOpen(false);
   }
-  //** End State  */
 
   //** Create State For Inputs fields */
-  const [inputData,setInputData] = useState<IProduct>(defualtProductData);
+  const [inputData, setInputData] = useState<IProduct>(defualtProductData);
+   //** Create state for errors */
+   const [errors, setError] = useState({title: "",description: "",imageURL: "",price: "",});
 
-    //** Handlers */
-    const handerInputData = (e:React.ChangeEvent<HTMLInputElement>)=>{
-      const {name,value} = e.target;
-      setInputData({...inputData,[name]:value});
-    }
-    const handerSubmitbutton = (e:React.FormEvent<HTMLFormElement>):void =>{
-      e.preventDefault();
-      console.log(inputData)
-      setInputData(defualtProductData);
+
+  //** Handlers */
+  const handerInputData = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setInputData({ ...inputData, [name]: value });
+    setError({ ...errors, [name]: "" });
+  }
+
+  const handerSubmitbutton = (e: React.FormEvent<HTMLFormElement>): void => {
+    e.preventDefault();
+    const { title, description, imageURL, price } = inputData;
+    const errors = productValidation({
+      title,
+      description,
+      imageURL,
+      price
+    });
+    
+    const hasErrorMessage = Object.values(errors).some(error => error === '') &&
+      Object.values(errors).every(error => error === '')
+    if (!hasErrorMessage) {
+      setError(errors);
+      return;
+    } else {
+      console.log("Form submitted :)")
       close();
-
+    
     }
+
+  }
+
   //** Renders */
   const renderProductList = productList.map((product) => {
     return (
@@ -58,7 +82,8 @@ function App() {
     return (
       <div className="my-1" key={input.id}>
         <label htmlFor={input.id} className="block mb-2 text-sm font-medium text-gray-900 ">{input.label}</label>
-        <Input type={input.type} id={input.id} name={input.name} required value={inputData[input.name]} onChange={handerInputData}/>
+        <Input type={input.type} id={input.id} name={input.name} value={inputData[input.name]} onChange={handerInputData} />
+        <ErrorMessages message={errors[input.name]} />
       </div>
     );
 
@@ -73,8 +98,8 @@ function App() {
           <form action="" onSubmit={handerSubmitbutton}>
             {renderInputList}
             <div className="mt-4 flex space-x-2">
-            <Button className="bg-indigo-700 hover:bg-indigo-800" >Submit</Button>
-            <Button className="bg-gray-700 hover:bg-gray-800" onClick={close}>Cancel</Button>
+              <Button className="bg-indigo-700 hover:bg-indigo-800" >Submit</Button>
+              <Button className="bg-gray-700 hover:bg-gray-800" onClick={close}>Cancel</Button>
             </div>
           </form>
         </Model>
