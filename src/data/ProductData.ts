@@ -14,11 +14,6 @@ export const productList: IProduct[] = [
       "#A31ACB",
       "#FF6E31",
       "#3C2A21",
-      "#CB1C8D",
-      "#645CBB",
-      "#FF0032",
-      "#820000",
-      "#13005A",
       "#1F8A70",
       "#84D2C5",
     ],
@@ -66,7 +61,12 @@ export const productList: IProduct[] = [
     imageURL:
       "https://images.unsplash.com/photo-1552831388-6a0b3575b32a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1632&q=80",
     price: "1500",
-    colors: [],
+    colors: [ "#A31ACB",
+      "#FF6E31",
+      "#3C2A21",
+      "#CB1C8D",
+      "#645CBB",
+      "#84D2C5",],
     category: {
       name: "PC Desktop",
       imageURL:
@@ -85,11 +85,6 @@ export const productList: IProduct[] = [
       "#A31ACB",
       "#FF6E31",
       "#3C2A21",
-      "#CB1C8D",
-      "#645CBB",
-      "#FF0032",
-      "#820000",
-      "#13005A",
       "#1F8A70",
       "#84D2C5",
     ],
@@ -137,7 +132,10 @@ export const productList: IProduct[] = [
     imageURL:
       "https://images.unsplash.com/photo-1552831388-6a0b3575b32a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1632&q=80",
     price: "1500",
-    colors: [],
+    colors: [ "#A31ACB",
+      "#FF6E31",
+      "#3C2A21",
+      "#84D2C5",],
     category: {
       name: "PC Desktop",
       imageURL:

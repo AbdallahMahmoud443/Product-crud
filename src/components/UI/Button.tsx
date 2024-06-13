@@ -5,12 +5,14 @@ interface IProps extends React.DOMAttributes<HTMLButtonElement>{
     className:string
     children?:ReactNode
     width?: "w-full" | "w-fit"
+    type?:string
+ 
 }
 
-const Button = ({name,className,children,width="w-full",...rest}: IProps) => {
+const Button = ({name,className,children,width="w-full",type,...rest}: IProps) => {
     return (
         <>
-            <button className={`${className} ${width} text-white p-2 rounded-md text-lg w-full`}  {...rest} >{children? children : name}</button>
+            <button className={`${className} ${width} text-white p-2 rounded-md text-lg `} {...rest} >{children? children : name}</button>
         </>
     );
 };

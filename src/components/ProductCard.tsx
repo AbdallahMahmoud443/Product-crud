@@ -2,13 +2,21 @@ import Button from "./UI/Button";
 import Image from "./Image";
 import { IProduct } from "../interfaces";
 import { sliceText, sliceTextTitle } from "../utilities";
+import CircleColor from "./CircleColor";
 interface IProps {
     product: IProduct,
     openModel:()=>void
+ 
 }
 
 const ProductCard = ({product,openModel}: IProps) => {
-    const {title,description,imageURL,price} = product;
+    const {title,description,imageURL,price,colors} = product;
+
+    const renderColorList = colors.map(color => {
+        return (
+          <CircleColor key={color} color={color}/>
+        );
+      });
     return (
         <>
             <article className="border rounded-md p-2 flex flex-col mx-auto max-w-sm">
@@ -18,9 +26,7 @@ const ProductCard = ({product,openModel}: IProps) => {
                     <p className="text-gray-500">{sliceText(description)}</p>
                 </div>
                 <div className="flex items-center mt-4 mb-1 space-x-1">
-                    <span className="w-5 h-5 rounded-full bg-indigo-400" />
-                    <span className="w-5 h-5 rounded-full bg-green-400" />
-                    <span className="w-5 h-5 rounded-full bg-red-800" />
+                    {renderColorList}
                 </div>
                 <div className=" flex items-center justify-between mb-3">
                     <span className="text-indigo-600 text-xl font-semibold">{price}$</span>
