@@ -10,7 +10,7 @@ interface IProps {
 }
 
 const ProductCard = ({product,openModel}: IProps) => {
-    const {title,description,imageURL,price,colors} = product;
+    const {title,description,imageURL,price,colors,category} = product;
 
     const renderColorList = colors.map(color => {
         return (
@@ -30,7 +30,7 @@ const ProductCard = ({product,openModel}: IProps) => {
                 </div>
                 <div className=" flex items-center justify-between mb-3">
                     <span className="text-indigo-600 text-xl font-semibold">{price}$</span>
-                    <Image url={imageURL} alt={"Product Category"} className="h-10 w-10 rounded-full object-bottom" />
+                    <Image url={category.imageURL} alt={category.name} className="h-10 w-10 rounded-full object-bottom" />
                 </div>
                 <div className="space-x-2 flex justify-between">
                     <Button name="Edit" className="bg-indigo-700" onClick={openModel} width="w-full" />

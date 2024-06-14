@@ -22,7 +22,7 @@ export const productValidation = (product: {title: string,description: string,im
 
     }
     const validUrl = /^(ftp|http|https):\/\/[^ "]+$/.test(product.imageURL);
-
+    
     if (!product.title.trim() || product.title.length < 10 || product.title.length > 20) {
         errors.title = "Product Title Characters Must Be Between 10 and 20";
     }
