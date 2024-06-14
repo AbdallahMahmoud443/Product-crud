@@ -1,3 +1,4 @@
+
 /**
  * Validates a product object for required fields and constraints.
  *
@@ -13,13 +14,13 @@
  * @property {string} imageURL - Error message for the imageURL field.
  * @property {string} price - Error message for the price field.
  */
-export const productValidation = (product: {title: string,description: string,imageURL: string,price: string,}) => {
-    const errors: { title: string, description: string, imageURL: string, price: string, } = {
+export const productValidation = (product: {title: string,description: string,imageURL: string,price: string},colors:string[]) => {
+    const errors: { title: string, description: string, imageURL: string, price: string,colors:string} = {
         title: "",
         description: "",
         imageURL: "",
         price: "",
-
+        colors:"",
     }
     const validUrl = /^(ftp|http|https):\/\/[^ "]+$/.test(product.imageURL);
     
@@ -34,6 +35,9 @@ export const productValidation = (product: {title: string,description: string,im
     }
     if(!product.imageURL.trim() || !validUrl){
         errors.imageURL ="Invalid Url syntax"
+    }
+    if(colors.length === 0){
+        errors.colors ="Please Select Color"
     }
     return errors;
 }

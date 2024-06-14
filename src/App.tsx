@@ -38,7 +38,7 @@ function App() {
   const [inputData, setInputData] = useState<IProduct>(defualtProductData);
 
   //** Create state for errors (appear when submit data to create product )*/
-  const [errors, setError] = useState({ title: "", description: "", imageURL: "", price: "", });
+  const [errors, setError] = useState({ title: "", description: "", imageURL: "", price: "",colors:""});
 
   //** Create State For Storing Colors  (change when add color to product when create product)*/
   const [tempColors, setTempColors] = useState<string[]>([]);
@@ -46,7 +46,7 @@ function App() {
   //** Create State For Product List (change when add product) over lists of products */
   const [products, setProducts] = useState<IProduct[]>(productList);
   //** Create state For Select Box to chnage options */
-  const [categorySelected, SetCategorySelected] = useState<ICategory>(categories[0])
+  const [categorySelected, SetCategorySelected] = useState<ICategory>(categories[0]);
 
 
   //** ------------------ Handlers ------------------ */
@@ -65,7 +65,7 @@ function App() {
       description,
       imageURL,
       price
-    }); //* Check data before insert it by productValidation method on file (productValidation)
+    },tempColors); //* Check data before insert it by productValidation method on file (productValidation)
 
     const hasErrorMessage = Object.values(errors).some(error => error === '') &&
       Object.values(errors).every(error => error === '') //* Check if there error or not 
@@ -109,6 +109,7 @@ function App() {
     return (
       <CircleColor key={color} color={color} onClick={() => {
         //*! Action when user click in color must add color in tempColors state (string[]) 
+        setError({ ...errors, colors: "" }); //* romve error when select color
         if (tempColors.includes(color)) {
           setTempColors(prev => prev.filter(c => c !== color)); //* Toggle color 
           return; //*! Important  prevent continue 
@@ -138,10 +139,11 @@ function App() {
                 );
               })}
             </div>
-            
             <div className="flex items-center mt-4 mb-1 flex-wrap space-x-1">
               {renderColorList}
+             
             </div>
+            <ErrorMessages message={errors.colors} />
             <div className="mt-4 flex  space-x-2">
               <Button className="bg-indigo-700 hover:bg-indigo-800" >Submit</Button>
             </div>
