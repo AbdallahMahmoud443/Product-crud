@@ -1,22 +1,36 @@
+
 import Button from "./UI/Button";
 import Image from "./Image";
 import { IProduct } from "../interfaces";
 import { sliceText, sliceTextTitle } from "../utilities";
 import CircleColor from "./CircleColor";
+import toast, { Toaster } from 'react-hot-toast';
+
 interface IProps {
     product: IProduct,
-    openModel:()=>void
- 
+    setProductToEditData: (val:IProduct) => void,
+    openEditModel:()=>void,
+    index:number,
+    setIndexEditProduct:(val:number)=>void
+    products:IProduct[],
+    setProducts:(val:IProduct[])=>void,
 }
 
-const ProductCard = ({product,openModel}: IProps) => {
-    const {title,description,imageURL,price,colors,category} = product;
+const ProductCard = ({ product, setProductToEditData,openEditModel,index,setIndexEditProduct,products,setProducts}: IProps) => {
+    const { title, description, imageURL, price, colors, category } = product;
 
+    //** ----------------------- Renders of colors ----------------------- */
     const renderColorList = colors.map(color => {
         return (
-          <CircleColor key={color} color={color}/>
+            <CircleColor key={color} color={color} />
         );
-      });
+    });
+    //** ----------------------- Handler -----------------------  */
+    const onEdit = ()=>{
+        openEditModel()
+        setProductToEditData(product);
+        setIndexEditProduct(index);
+    }
     return (
         <>
             <article className="border rounded-md p-2 flex flex-col mx-auto max-w-sm">
@@ -33,12 +47,32 @@ const ProductCard = ({product,openModel}: IProps) => {
                     <Image url={category.imageURL} alt={category.name} className="h-10 w-10 rounded-full object-bottom" />
                 </div>
                 <div className="space-x-2 flex justify-between">
-                    <Button name="Edit" className="bg-indigo-700" onClick={openModel} width="w-full" />
-                    <Button className="bg-red-700">
-                        <span>Delete</span>
-                    </Button>
+                    <Button name="Edit" className="bg-indigo-700" onClick={onEdit} width="w-full" />
+                    <Button className="bg-red-700" onClick={()=>{
+                     
+                        const removedList = products.filter(p => p.id !== product.id);
+                        setProducts(removedList);
+                        toast('Product Removed Successfully', {
+                            duration: 2000,
+                            position: 'top-right',             
+                            // Styling
+                            style: {backgroundColor:"black",color:"white"},
+                            // Custom Icon
+                            icon: '👏',
+                            // Aria
+                            ariaProps: {
+                              role: 'status',
+                              'aria-live': 'polite',
+                            },
+                          });
 
+
+
+                    }}>
+                        <span>Remove</span>
+                    </Button>
                 </div>
+                <Toaster />
             </article>
         </>
     );

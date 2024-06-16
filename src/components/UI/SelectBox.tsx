@@ -11,7 +11,7 @@ function classNames(...classes: string[]) {
 }
 
 interface IProbs{
-    selected:ICategory,
+    selected:{name:string,imageURL:string},
     setSelected:(category:ICategory)=>void
 }
 export default function SelectBox({selected,setSelected}:IProbs) {
