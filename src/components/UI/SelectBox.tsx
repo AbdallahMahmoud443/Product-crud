@@ -3,6 +3,7 @@ import { Label, Listbox, ListboxButton, ListboxOption, ListboxOptions, Transitio
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid'
 import { categories } from '../../data/ProductData'
 import { ICategory } from '../../interfaces'
+import { memo } from 'react'
 
 
 
@@ -14,7 +15,7 @@ interface IProbs{
     selected:{name:string,imageURL:string},
     setSelected:(category:ICategory)=>void
 }
-export default function SelectBox({selected,setSelected}:IProbs) {
+function SelectBox({selected,setSelected}:IProbs) {
 
   return (
     <Listbox value={selected} onChange={setSelected}>
@@ -79,3 +80,5 @@ export default function SelectBox({selected,setSelected}:IProbs) {
     </Listbox>
   )
 }
+
+export default memo(SelectBox)

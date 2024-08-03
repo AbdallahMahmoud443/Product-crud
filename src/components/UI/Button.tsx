@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { memo, ReactNode } from "react";
 
 interface IProps extends React.DOMAttributes<HTMLButtonElement>{
     name?:string,
@@ -17,4 +17,5 @@ const Button = ({name,className,children,width="w-full",type,...rest}: IProps) =
     );
 };
 
-export default Button;
+/** IN Shard Component like this used meme function to optimized it  */
+export default memo(Button);

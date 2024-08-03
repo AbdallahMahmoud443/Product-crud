@@ -5,6 +5,7 @@ import { IProduct } from "../interfaces";
 import { sliceText, sliceTextTitle } from "../utilities";
 import CircleColor from "./CircleColor";
 import toast, { Toaster } from 'react-hot-toast';
+import { memo } from "react";
 
 interface IProps {
     product: IProduct,
@@ -76,4 +77,4 @@ const ProductCard = ({ product, setProductToEditData,openEditModel,index,setInde
     );
 };
 
-export default ProductCard;
+export default memo(ProductCard);

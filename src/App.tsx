@@ -3,7 +3,7 @@ import './App.css'
 import ProductCard from './components/ProductCard'
 import Model from './components/UI/Model';
 import { categories, colors, formInputsList, productList } from './data/ProductData';
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
 import Input from './components/Input';
 import { ICategory, IProduct } from './interfaces';
 import { productValidation } from './validation/productInputValidation';
@@ -55,7 +55,9 @@ function App() {
 
   //** state for open and close model (Edit Model)  */
   let [isOpenEditModel, setlIsOpenEditModel] = useState(false);
-  const openEditModel = () => setlIsOpenEditModel(true);
+
+  const openEditModel = useCallback(() => setlIsOpenEditModel(true),[]);
+
   const closeEditModel = () => setlIsOpenEditModel(false);
   //**  State for index of product will be edit*/
   let [indexEditProduct,setIndexEditProduct] = useState<number>(0);
@@ -186,7 +188,7 @@ function App() {
     <>
       <main className='container mx-auto'>
         <section className='flex justify-center items-center my-5'>
-          <Button name="Bulid Product" className="bg-indigo-700 hover:bg-indigo-800" width='w-fit' onClick={() => open()} />
+          <Button name="Bulid Product" className="bg-indigo-700 hover:bg-indigo-800" width='w-fit' onClick={useCallback(() => open(),[])} />
         </section>
         <section className='my-5 mx-2 grid md:grid-cols-2 lg:grid-cols-4 2xl:grid-cols-5 gap-4'>
           {renderProductList}
