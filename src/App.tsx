@@ -64,11 +64,14 @@ function App() {
 
   //** ------------------ Handlers ------------------ */
   //**Todo: Used in write text inside input fields */
-  const handerInputData = (e: React.ChangeEvent<HTMLInputElement>) => {
+
+  const handerInputData = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target; // spesific input
-    setInputData({ ...inputData, [name]: value }); //* state include (old data + new data) important
-    setError({ ...errors, [name]: "" }); //* to show error when write error will disappear important
-  }
+    // setInputData({ ...inputData, [name]: value}); //* state include (old data + new data) important
+    setInputData(prev => ({...prev,[name]: value}))
+    // setError({ ...errors, [name]: "" }); //* to show error when write error will disappear important
+    setError(prev => ({...prev,[name]:""}))
+  },[])
 
   //**Todo: Used in add Product  */
   const handerSubmitbutton = (e: React.FormEvent<HTMLFormElement>): void => {
@@ -126,11 +129,11 @@ function App() {
     }
   };
    //**Todo: Used in write text inside input fields during edit */
-   const handerInputEditData = (e: React.ChangeEvent<HTMLInputElement>) => {
+   const handerInputEditData = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target; // spesific input
     setProductToEditData({ ...ProductToEditData, [name]: value }); //* state include (old data + new data) important
     setError({ ...errors, [name]: "" }); //* to show error when write error will disappear important
-  }
+  },[])
 
   //** ------------------ Render Lists ------------------ */
 
