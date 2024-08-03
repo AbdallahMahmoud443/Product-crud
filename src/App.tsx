@@ -3,7 +3,7 @@ import './App.css'
 import ProductCard from './components/ProductCard'
 import Model from './components/UI/Model';
 import { categories, colors, formInputsList, productList } from './data/ProductData';
-import { useCallback, useState } from 'react'
+import { useCallback, useRef, useState } from 'react'
 import Input from './components/Input';
 import { ICategory, IProduct } from './interfaces';
 import { productValidation } from './validation/productInputValidation';
@@ -61,6 +61,9 @@ function App() {
   const closeEditModel = () => setlIsOpenEditModel(false);
   //**  State for index of product will be edit*/
   let [indexEditProduct,setIndexEditProduct] = useState<number>(0);
+  //* UseRef Hook is optimized because it doesn't change in static (not re-rendering)
+  const InputRef = useRef<null | HTMLInputElement>(null);
+  console.log(InputRef.current?.value) 
 
   //** ------------------ Handlers ------------------ */
   //**Todo: Used in write text inside input fields */
@@ -194,7 +197,8 @@ function App() {
           <Button name="Bulid Product" className="bg-indigo-700 hover:bg-indigo-800" width='w-fit' onClick={useCallback(() => open(),[])} />
         </section>
         <section className='my-5 mx-2 grid md:grid-cols-2 lg:grid-cols-4 2xl:grid-cols-5 gap-4'>
-          {renderProductList}
+        {/* {renderProductList}  */}
+        <Input ref ={InputRef}/>
         </section>
         {/** Model To Add Product */}
         <Model isOpen={isOpen} closeModel={close} title='Add New Product'>
