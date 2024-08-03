@@ -66,8 +66,6 @@ const ProductCard = ({ product, setProductToEditData,openEditModel,index,setInde
                             },
                           });
 
-
-
                     }}>
                         <span>Remove</span>
                     </Button>
